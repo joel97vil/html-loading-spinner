@@ -1,10 +1,15 @@
-# Simple HTML loading spinner
-A really simple JavaScript component to display a *loading spinner* made with raw HTML and CSS.
+# Simple JS loading spinner
+A really simple JavaScript component to display a *loading spinner* made with raw HTML, CSS and JS.
 
-##Usage
+## Usage
 Coming soon...
 
-##Examples
+## Examples
 
-##Credits
-Coming soon...
+## Features
+[ ] Some default layouts
+[ ] Customizable layout (by parameters)
+[ ] Capture event to stop rendering the loading spinner
+
+## Credits
+[@NanouuSymeon](https://twitter.com/NanouuSymeon) for the example CSS code.

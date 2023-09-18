@@ -18,6 +18,10 @@ function loadingSpinner(options){
     const SLOWER_SPEED = 4000;
 
 
+    //EVENTS
+    const event = new Event("isFinished");
+
+
     //VARIABLES
     let _this;
 
@@ -28,8 +32,6 @@ function loadingSpinner(options){
     let _speed; //as millisecs
     let _size;
     let _options;
-
-    let _exit = false;
 
 
     //INITIALIZATION
@@ -60,13 +62,6 @@ function loadingSpinner(options){
         this.render();
     }
     
-    this.checkFinish = async function(){
-        let i = 1;
-        if(i == 0){
-            _exit = true;
-        }
-    }
-    
     this.stop = function(){
         //TODO: remove div
         let div = document.getElementsByClassName("main-container");
@@ -76,6 +71,16 @@ function loadingSpinner(options){
 
     //EXECUTION
     this.init();
+    
+    // Listen for the event.
+    this.addEventListener(
+        "isFinished",
+            (e, _this) => {
+                _this.stop();
+            },
+        false,
+    );
 
-    //TODO: Add a listener to check when the process is finished
+    // Dispatch the event.
+    this.dispatchEvent(event);
 }
