@@ -17,6 +17,8 @@ function loadingSpinner(options){
     const SLOW_SPEED = 3000;
     const SLOWER_SPEED = 4000;
 
+    const DEFAULT_TEXT = "LOADING ...";
+
 
     //EVENTS
     const event = new Event("isFinished");
@@ -35,11 +37,24 @@ function loadingSpinner(options){
 
 
     //INITIALIZATION
-    let defaultOptions = { _foreground_color: DEFAULT_FOREGROUND, _overlay: false, _text: "", _speed: DEFAULT_SPEED, _background_color: DEFAULT_BACKGROUND};
+    let defaultOptions = { _foreground_color: DEFAULT_FOREGROUND, _overlay: false, _text: DEFAULT_TEXT, _speed: DEFAULT_SPEED, _background_color: DEFAULT_BACKGROUND};
 
     _options = { defaultOptions /*some more possible options to add*/ };
     _this = this;
 
+    //ACCESSORS
+    this.getInstance = function(){ return _this; }
+    this.getOverlay = function(){ return _overlay; }
+    this.setOverlay = function(overlay) { _overlay = overlay; }
+    this.getForegroundColor = function(){ return _foreground_color; }
+    this.setForegroundColor = function(foregroundColor){ _foreground_color = foregroundColor; }
+    this.getBackgroundColor = function(){ return _background_color; }
+    this.setBackgroundColor = function(backgorundColor){ _background_color = backgorundColor; }
+    this.getSpeed = function(){ return _speed; }
+    this.setSpeed = function(speed){ _speed = speed; }
+    this.getSize = function(){ return _size; }
+    this.setSize = function(size){ _size = size; }
+    this.getOptions = function(){ return _options; }
 
     //FUNCTIONS
     this.render = function(){
@@ -52,7 +67,7 @@ function loadingSpinner(options){
     
         let span = document.createElement("span");
         span.setAttribute("class", "text");
-        span.innerHTML = "LOADING ...";
+        span.innerHTML = DEFAULT_TEXT;
         container.append(span);
     
         document.body.appendChild(container);
@@ -72,15 +87,15 @@ function loadingSpinner(options){
     //EXECUTION
     this.init();
     
-    // Listen for the event.
-    this.addEventListener(
+    // Listen the event.
+    /*this.addEventListener(
         "isFinished",
             (e, _this) => {
                 _this.stop();
             },
         false,
-    );
+    );*/
 
     // Dispatch the event.
-    this.dispatchEvent(event);
+    //this.dispatchEvent(event);
 }
