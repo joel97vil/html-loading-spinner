@@ -29,18 +29,23 @@ function loadingSpinner(options){
 
     let _overlay;
     let _text;
+    let _secondary_text;
     let _foreground_color;
     let _background_color;
     let _speed; //as millisecs
     let _size;
-    let _options;
 
 
     //INITIALIZATION
-    let defaultOptions = { _foreground_color: DEFAULT_FOREGROUND, _overlay: false, _text: DEFAULT_TEXT, _speed: DEFAULT_SPEED, _background_color: DEFAULT_BACKGROUND};
-
-    _options = { defaultOptions /*some more possible options to add*/ };
+    options = { _foreground_color: DEFAULT_FOREGROUND, _overlay: false, _text: DEFAULT_TEXT, _speed: DEFAULT_SPEED, _background_color: DEFAULT_BACKGROUND, _secondary_text: null};
+    _foreground_color = options._foreground_color;
+    _overlay = options._overlay;
+    _text = options._text;
+    _speed = options._speed;
+    _background_color = options._background_color;
+    _secondary_text = options._secondary_text;
     _this = this;
+
 
     //ACCESSORS
     this.getInstance = function(){ return _this; }
@@ -52,9 +57,13 @@ function loadingSpinner(options){
     this.setBackgroundColor = function(backgorundColor){ _background_color = backgorundColor; }
     this.getSpeed = function(){ return _speed; }
     this.setSpeed = function(speed){ _speed = speed; }
+    this.getText = function(){ return _text; }
+    this.setText = function(text) { _text = text; }
+    this.getSecondaryText = function(){ return _secondary_text; }
+    this.setSecondaryText = function(secondary_text) { _secondary_text = secondary_text; }
     this.getSize = function(){ return _size; }
     this.setSize = function(size){ _size = size; }
-    this.getOptions = function(){ return _options; }
+
 
     //FUNCTIONS
     this.render = function(){
@@ -66,9 +75,16 @@ function loadingSpinner(options){
         container.append(spinner);
     
         let span = document.createElement("span");
-        span.setAttribute("class", "text");
-        span.innerHTML = DEFAULT_TEXT;
+        span.setAttribute("class", "text primary-text");
+        span.innerHTML = this.getText();
         container.append(span);
+
+        if(this.getSecondaryText() != "" && this.getSecondaryText() != null){
+            let secondary = document.createElement("span");
+            secondary.setAttribute("class", "text secondary-text");
+            secondary.innerHTML = this.getSecondaryText();
+            container.append(secondary);
+        }
     
         document.body.appendChild(container);
     }
@@ -78,15 +94,16 @@ function loadingSpinner(options){
     }
     
     this.stop = function(){
-        //TODO: remove div
         let div = document.getElementsByClassName("main-container");
-        div.remove();
+        for(let i = 0; i < div.length; i++){
+            div[i].remove();
+        }
     }
 
 
     //EXECUTION
     this.init();
-    
+
     // Listen the event.
     /*this.addEventListener(
         "isFinished",
@@ -98,4 +115,7 @@ function loadingSpinner(options){
 
     // Dispatch the event.
     //this.dispatchEvent(event);
+
+    //setTimeout(3000000);
+    //this.stop();
 }
